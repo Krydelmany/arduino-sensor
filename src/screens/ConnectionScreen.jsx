@@ -78,7 +78,7 @@ const ConnectionScreen = ({ onContinue }) => {
             href="#" 
             onClick={(e) => {
               e.preventDefault();
-              window.open('https://github.com/seu-usuario/arduino-sensor', '_blank');
+              window.open('https://github.com/krydelmany/arduino-sensor', '_blank');
             }}
             className="text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
