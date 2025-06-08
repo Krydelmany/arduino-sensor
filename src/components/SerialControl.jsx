@@ -160,7 +160,7 @@ const SerialControl = ({ onConnectionSuccess }) => {
     }
   };
 
-  // Adicione um botão de reconexão forçada quando houver erro
+  // Botão de reconexão forçada quando houver erro
   const renderConnectionButton = () => {
     const hasError = message.includes('Erro');
     
@@ -341,20 +341,20 @@ const SerialControl = ({ onConnectionSuccess }) => {
         {isConnected && (
           <>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Enviar Comando</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Enviar Comando</label>
               <div className="flex">
                 <input
                   type="text"
                   value={sendText}
                   onChange={(e) => setSendText(e.target.value)}
-                  className="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="flex-grow px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-dark-surface-lighter text-gray-700 dark:text-gray-300 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200"
                   placeholder="Digite um comando..."
                   onKeyPress={(e) => e.key === 'Enter' && sendData()}
                 />
                 <button
                   onClick={sendData}
                   disabled={!sendText.trim()}
-                  className="ml-0 px-4 py-2 border border-transparent text-sm font-medium rounded-r-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  className="ml-0 px-4 py-2 border border-transparent text-sm font-medium rounded-r-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-dark-surface disabled:opacity-50 transition-colors duration-200"
                 >
                   Enviar
                 </button>
@@ -363,22 +363,22 @@ const SerialControl = ({ onConnectionSuccess }) => {
 
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium text-gray-700">Dados Recebidos</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Dados Recebidos</label>
                 <button
                   onClick={clearData}
-                  className="text-xs text-gray-500 hover:text-gray-700"
+                  className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
                 >
                   Limpar
                 </button>
               </div>
-              <div className="border border-gray-300 rounded-md p-3 bg-gray-50 h-48 overflow-y-auto">
+              <div className="border border-gray-300 dark:border-gray-700 rounded-md p-3 bg-gray-50 dark:bg-dark-surface-lighter h-48 overflow-y-auto transition-colors duration-200">
                 {receivedData.length === 0 ? (
-                  <p className="text-gray-500 text-sm">Nenhum dado recebido ainda...</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">Nenhum dado recebido ainda...</p>
                 ) : (
                   receivedData.map((item, index) => (
                     <div key={index} className="mb-1 text-sm">
-                      <span className="text-gray-500">[{item.time}]</span>{' '}
-                      <span className="font-mono">{item.data}</span>
+                      <span className="text-gray-500 dark:text-gray-400">[{item.time}]</span>{' '}
+                      <span className="font-mono text-gray-800 dark:text-gray-200">{item.data}</span>
                     </div>
                   ))
                 )}
@@ -388,7 +388,7 @@ const SerialControl = ({ onConnectionSuccess }) => {
         )}
 
         {hasPersistentError && (
-          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 text-sm rounded-md">
+          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 text-sm rounded-md transition-colors duration-200">
             <p className="font-medium">Dica para problemas de conexão persistentes:</p>
             <ul className="list-disc pl-5 mt-1">
               <li>Se o erro persistir, tente desconectar fisicamente o cabo USB e reconectar</li>

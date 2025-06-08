@@ -58,7 +58,7 @@ ipcMain.handle('serial:list', async () => {
 // Função utilitária para atrasos
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Função para forçar a liberação da porta (Windows)
+// Função para forçar a liberação da porta
 const forceReleasePort = async (portPath) => {
   console.log(`Tentando forçar liberação da porta ${portPath}...`);
   if (process.platform === 'win32') {

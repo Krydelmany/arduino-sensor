@@ -47,7 +47,10 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
       exit={{ opacity: 0 }}
     >
       <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center flex-wrap gap-2">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Histórico de Leituras</h3>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Histórico de Detecções de Movimento</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Registros salvos automaticamente quando movimento é detectado</p>
+        </div>
         
         <div className="flex space-x-2">
           <select 
@@ -68,7 +71,7 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
             <option value="high-temp">Temperatura alta ({'>'}25°C)</option>
             <option value="low-temp">Temperatura baixa (&lt;25°C)</option>
             <option value="high-hum">Umidade alta ({'>'}60%)</option>
-            <option value="low-hum">Umidade baixa ({'<'}40%)</option>
+            <option value="low-hum">Umidade baixa (&lt;40%)</option>
           </select>
         </div>
       </div>
@@ -86,7 +89,7 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
                 #
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Horário
+                Data/Hora da Detecção
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Temperatura
@@ -94,13 +97,16 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Umidade
               </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Status
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white dark:bg-dark-surface-light divide-y divide-gray-200 dark:divide-gray-700">
             {processedData.length === 0 ? (
               <motion.tr variants={rowVariants}>
-                <td colSpan="4" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                  Nenhum registro encontrado.
+                <td colSpan="5" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                  Nenhuma detecção de movimento registrada ainda.
                 </td>
               </motion.tr>
             ) : (
@@ -114,7 +120,10 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
                     {item.count || (dataHistory.length - index)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    {item.timestamp.toLocaleTimeString()} - {item.timestamp.toLocaleDateString()}
+                    <div>
+                      <div>{item.timestamp.toLocaleTimeString()}</div>
+                      <div className="text-xs text-gray-400 dark:text-gray-500">{item.timestamp.toLocaleDateString()}</div>
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 inline-flex text-sm leading-5 font-semibold rounded-full ${
@@ -134,6 +143,14 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
                       {formatHum(item.hum)}
                     </span>
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="px-2 py-1 inline-flex items-center text-sm leading-5 font-semibold rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300">
+                      <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Movimento
+                    </span>
+                  </td>
                 </motion.tr>
               ))
             )}
@@ -142,7 +159,7 @@ const HistoryView = ({ dataHistory, formatTemp, formatHum }) => {
       </div>
       
       <div className="px-6 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
-        Total de registros: {processedData.length}
+        Total de detecções registradas: {processedData.length}
       </div>
     </motion.div>
   );

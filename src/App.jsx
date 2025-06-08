@@ -36,7 +36,7 @@ function App() {
         )}
         
         <div className="text-center p-4 text-sm text-gray-500 dark:text-gray-400">
-          Desenvolvido com Electron, React e SerialPort
+          Monitor de Sensores Arduino com Detector de Movimento
         </div>
       </div>
     </ThemeProvider>
